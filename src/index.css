@@ -9,3 +9,20 @@ body{
   background:linear-gradient(180deg, rgb(194, 111, 250) 0%, rgb(56, 233, 233) 100%);
   color: #fff;
 }
+
+button{
+  background: #14a6e0;
+  color: #fff;
+  padding: 0 45px;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  height: 50px;
+  font-weight: bold;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover{
+  background-color: blueviolet;
+}

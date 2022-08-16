@@ -1,8 +1,11 @@
 import './GameOver.css';
 
-const GameOver = () => {
+const GameOver = ({retry}) => {
   return (
-    <div>End</div>
+    <div>
+      <h1>End</h1>
+      <button onClick={retry}>Começar novo jogo!</button>
+    </div>
   )
 }
 

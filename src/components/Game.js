@@ -19,7 +19,7 @@ const Game = ({ veriryLetter }) => {
                 <span className="blankSquare"></span>
             </div>
 
-            <div className="lettrerContainer">
+            <div className="letterContainer">
                 <p>Tenta advinhar uma letra:</p>
             </div>
 
@@ -33,6 +33,7 @@ const Game = ({ veriryLetter }) => {
             <span>a,</span>
             <span>b,</span>
             </div>
+
         </div>
     )
 }

@@ -73,8 +73,9 @@ function App() {
   }
 
 
-  const veriryLetter = () => {
-    setGameStage(stages[2].name)
+  const veriryLetter = (letter) => {
+    // setGameStage(stages[2].name)
+    console.log(letter);
   }
 
   const retry = () => {

@@ -1,5 +1,5 @@
 import './Game.css';
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 const Game = ({ veriryLetter,
     pickedWord,
@@ -11,9 +11,18 @@ const Game = ({ veriryLetter,
     score }) => {
 
     const [letter, setLetter] = useState("");
+    const letterInputRef = useRef(null)
 
-    const handleSubmit = (e) =>{
+
+    const handleSubmit = (e) => {
         e.preventDefault();
+
+        veriryLetter(letter);
+
+        setLetter("")
+
+        //focando no elemento após o envio da letra, deixando aberto para digitar
+        letterInputRef.current.focus()
     }
 
     return (
@@ -45,9 +54,14 @@ const Game = ({ veriryLetter,
             </div>
 
             <form onSubmit={handleSubmit}>
-                <input type="text" name="letter" maxLength="1" required
+                <input type="text"
+                    name="letter"
+                    maxLength="1"
+                    required
                     onChange={(e) => setLetter(e.target.value)}
-                    value={letter} />
+                    value={letter}
+                    ref={letterInputRef}
+                     />
                 <button>Jogar!</button>
             </form>
 

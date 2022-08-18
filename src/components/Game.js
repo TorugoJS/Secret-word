@@ -1,4 +1,5 @@
 import './Game.css';
+
 import { useState, useRef } from 'react'
 
 const Game = ({ veriryLetter,
@@ -11,6 +12,7 @@ const Game = ({ veriryLetter,
     score }) => {
 
     const [letter, setLetter] = useState("");
+
     const letterInputRef = useRef(null)
 
 
@@ -19,6 +21,7 @@ const Game = ({ veriryLetter,
 
         veriryLetter(letter);
 
+        // limpando input após o envio
         setLetter("")
 
         //focando no elemento após o envio da letra, deixando aberto para digitar
@@ -37,9 +40,11 @@ const Game = ({ veriryLetter,
             <h3 className="tip">
                 Dica sobre o campeão! <span>{pickedCategory}</span>
             </h3>
+
             <p>Você ainda tem {guesses} chance(s).</p>
 
             <div className="wordContainer">
+
                 {letters.map((letter, i) => (
                     guessedLetters.includes(letter) ? (
                         <span key={i} className="letter">{letter}</span>
@@ -47,6 +52,7 @@ const Game = ({ veriryLetter,
                         <span key={i} className="blankSquare"></span>
                     )
                 ))}
+
             </div>
 
             <div className="letterContainer">
@@ -54,6 +60,7 @@ const Game = ({ veriryLetter,
             </div>
 
             <form onSubmit={handleSubmit}>
+
                 <input type="text"
                     name="letter"
                     maxLength="1"
@@ -61,15 +68,19 @@ const Game = ({ veriryLetter,
                     onChange={(e) => setLetter(e.target.value)}
                     value={letter}
                     ref={letterInputRef}
-                     />
+                />
+
                 <button>Jogar!</button>
+
             </form>
 
             <div className="wrongLettersContainer">
+                
                 <p>Letras erradas</p>
                 {wrongLetters.map((letter, i) => (
                     <span key={i}>{letter}-</span>
                 ))}
+
             </div>
 
         </div>

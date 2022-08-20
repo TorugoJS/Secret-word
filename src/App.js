@@ -21,6 +21,8 @@ const stages = [
   { id: 3, name: "end" }
 ]
 
+const guessesQtd = 3
+
 function App() {
 
   const [gameStage, setGameStage] = useState(stages[0].name);
@@ -32,11 +34,11 @@ function App() {
 
   const [guessedLetters, setGuessedLetters] = useState([])
   const [wrongLetters, setWrongLetters] = useState([])
-  const [guesses, setGuesses] = useState(3)
+  const [guesses, setGuesses] = useState(guessesQtd)
   const [score, setScore] = useState(0)
 
 
-  const pickedWordAndCategory = () => {
+  const pickedWordAndCategory = useCallback(() => {
 
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)]
@@ -49,9 +51,12 @@ function App() {
     console.log(word);
 
     return { word, category };
-  }
+  }, [words]);
 
-  const startGame = () => {
+  const startGame = useCallback(() => {
+
+    clearLetterStates();
+
     const { word, category } = pickedWordAndCategory();
 
     // separar letras
@@ -70,7 +75,7 @@ function App() {
     setLetters(wordLetters);
 
     setGameStage(stages[1].name)
-  }
+  }, [pickedWordAndCategory]);
 
 
   const veriryLetter = (letter) => {
@@ -92,15 +97,52 @@ function App() {
         normalizedletter
       ]);
 
+
+      setGuesses((actualGuesses) => actualGuesses - 1);
     }
 
   };
 
+  const clearLetterStates = () => {
+    setGuessedLetters([]);
+    setWrongLetters([]);
+  }
 
-  console.log(guessedLetters)
-  console.log(wrongLetters)
+
+
+  useEffect(() => {
+
+    if (guesses <= 0) {
+
+      clearLetterStates()
+      setGameStage(stages[2].name)
+
+    }
+
+  }, [guesses])
+
+  // console.log(guessedLetters)
+  // console.log(wrongLetters)
+
+  useEffect(() => {
+    const uniqueLetters = [...new Set(letters)];
+
+    if(guessedLetters.length === uniqueLetters.length) {
+      setScore((actualScore) => actualScore += 100)
+
+
+      startGame();
+    }
+
+    console.log(uniqueLetters);
+
+  }, [guessedLetters, letters, startGame]);
+
 
   const retry = () => {
+    setScore(0)
+    setGuesses(guessesQtd)
+
     setGameStage(stages[0].name)
   }
 
@@ -120,7 +162,7 @@ function App() {
         score={score}
       />}
 
-      {gameStage === "end" && <GameOver retry={retry} />}
+      {gameStage === "end" && <GameOver retry={retry} score={score} />}
     </div>
   );
 }

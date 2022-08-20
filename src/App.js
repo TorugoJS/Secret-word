@@ -74,9 +74,31 @@ function App() {
 
 
   const veriryLetter = (letter) => {
-    // setGameStage(stages[2].name)
-    console.log(letter);
-  }
+    const normalizedletter = letter.toLowerCase()
+
+    if (guessedLetters.includes(normalizedletter) || wrongLetters.includes(normalizedletter)
+    ) {
+      return;
+    }
+
+    if (letters.includes(normalizedletter)) {
+      setGuessedLetters((actualGuessedLetters) => [
+        ...actualGuessedLetters,
+        normalizedletter
+      ])
+    } else {
+      setWrongLetters((actualWrongLetters) => [
+        ...actualWrongLetters,
+        normalizedletter
+      ]);
+
+    }
+
+  };
+
+
+  console.log(guessedLetters)
+  console.log(wrongLetters)
 
   const retry = () => {
     setGameStage(stages[0].name)
@@ -96,7 +118,7 @@ function App() {
         wrongLetters={wrongLetters}
         guesses={guesses}
         score={score}
-         />}
+      />}
 
       {gameStage === "end" && <GameOver retry={retry} />}
     </div>

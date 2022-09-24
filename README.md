@@ -1,4 +1,4 @@
-# Secret-word
+# Secret-word!
 
 ## Simples jogo de adivinhar as palavras.
 
